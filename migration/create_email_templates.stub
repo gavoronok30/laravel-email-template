@@ -1,0 +1,43 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration {
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create(
+            '{{TABLE_NAME}}',
+            function (Blueprint $table) {
+                $table->id();
+                $table->string('type')->index();
+                $table->string('title')->nullable();
+                $table->text('description')->nullable();
+                $table->string('subject');
+                $table->mediumText('body');
+                $table->boolean('is_blade_template')->default(false);
+                $table->string('blade_template')->nullable();
+                $table->boolean('is_custom')->default(false)->index();
+                $table->boolean('is_active')->default(true)->index();
+                $table->json('properties')->nullable();
+                $table->timestamps();
+            }
+        );
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('{{TABLE_NAME}}');
+    }
+};
